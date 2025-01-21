@@ -1,0 +1,1 @@
+Ett toppen spel som är en version av Hänga-Gubbe där man gissar motståndarens nummer och vinner när deras gubbe blivit hängd
