@@ -158,7 +158,7 @@ function handleGuess() {
   
     guessInput.value = ""; // Clear input box
   }
-  //Börja Här
+ 
 // Switch to the next player's turn
 function switchTurn() {
     currentPlayer = currentPlayer === player1 ? player2 : player1; // Swap players
@@ -167,4 +167,3 @@ function switchTurn() {
     turnIndicator.textContent = `${currentPlayer.name}'s Turn`; // Update the turn indicator
   }
     
-
