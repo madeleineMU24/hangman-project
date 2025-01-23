@@ -134,31 +134,36 @@ function updateHistory() {
 function handleGuess() {
     const guessInput = document.getElementById("guess");
     const guess = parseInt(guessInput.value);
-
+  
     const message = document.getElementById("message");
-
+  
     if (isNaN(guess) || guess < 1 || guess > 100) {
-        message.textContent = "Please enter a valid number between 1 and 100.";
-        return;
+      message.textContent = "Please enter a valid number between 1 and 100.";
+      return;
     }
-
-    currentPlayer.history.push(guess); 
-    updateHistory(); 
-
+  
+    currentPlayer.history.push(guess); // Add guess to player's history
+    updateHistory(); // Update history display
+  
     if (guess === opponentPlayer.secretNumber) {
-        // Correct guess: End game
-        // TODO: setLight(currentPlayer, "green");
-        message.textContent = `🎉 Congratulations ${currentPlayer.name}! You win!`;
-        resultText.textContent = `${currentPlayer.name} Wins!`;
-        drawFullHangman(opponentPlayer); 
-        endGame();
+      // Correct guess: End game
+      message.textContent = `🎉 Congratulations ${currentPlayer.name}! You win!`;
+      drawFullHangman(opponentPlayer); // Draw full hangman for losing player
+      endGame();
     } else {
-        // Incorrect guess: Red light
-        // TODO: setLight(currentPlayer, "red");
-        message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
-        // TODO: setTimeout(switchTurn, 1000); 
+      // Incorrect guess
+      message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
+      setTimeout(switchTurn, 1000); // Call switchTurn() after 1 second delay
     }
+  
+    guessInput.value = ""; // Clear input box
+  }
+// Switch to the next player's turn
+function switchTurn() {
+    currentPlayer = currentPlayer === player1 ? player2 : player1; // Swap players
+    opponentPlayer = opponentPlayer === player1 ? player2 : player1; // Update opponent
+    const turnIndicator = document.getElementById("turn-indicator");
+    turnIndicator.textContent = `${currentPlayer.name}'s Turn`; // Update the turn indicator
+  }
+    
 
-    guessInput.value = ""; 
-}
-//Börja Här
