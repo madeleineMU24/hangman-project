@@ -23,8 +23,8 @@ body {
     margin: 10px 0;
     color: #555;
   }
-
-button {
+  
+  button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -35,4 +35,71 @@ button {
   
   button:hover {
     background-color: #0056b3;
+  }
+  
+  .player-section {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  canvas {
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    width: 300px; /* Increased canvas width */
+    height: 300px; /* Increased canvas height */
+  }
+  
+  .history-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    justify-content: center; /* Center align items */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+  }
+  
+  .history-list span {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  #guess {
+    padding: 10px;
+    width: 70%;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .light-container {
+    margin: 10px auto;
+  }
+  
+  .light {
+    width: 30px; /* Enlarged light indicator */
+    height: 30px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 1px solid #333;
+  }
+  
+  .light.green {
+    background-color: #28a745;
+  }
+  
+  .light.red {
+    background-color: #dc3545;
   }
