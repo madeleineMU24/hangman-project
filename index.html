@@ -23,7 +23,7 @@
     </div>
 
     <!--Game Area-->
-    <div id="game-container" class="hide">
+    <div id="game-container" hidden>
         <div class="player-section">
           <h2 id="player1-display"></h2>
           <div class="light-container">
@@ -48,13 +48,21 @@
         </div>
       </div>
 
+          <!-- New Game Section -->
+    <div id="new-game-container" hidden>
+        <h2 id="result-text"></h2>
+        <button id="new-game-button">Start New Game</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
       <!-- Input and Messages -->
-    <div id="user-input-section" class="hide">
+    <div id="user-input-section" hidden>
         <h3 id="turn-indicator"></h3>
         <input type="number" id="guess" placeholder="Enter your guess (1-100)" />
         <button id="submit-btn">Submit Guess</button>
         <p id="message"></p>
       </div>
+
 
 <footer>Spel gjort av: Rupana, Stephanie, Ivana, Adrian & Madeleine</footer>
 </body>
