@@ -124,11 +124,6 @@ btnStartGame.addEventListener('click', startGame)
 const player1HistoryList = document.getElementById("player1-history"); 
 const player2HistoryList = document.getElementById("player2-history"); 
 
-// Update the history display for both players
-function updateHistory() {
-    player1HistoryList.innerHTML = player1.history.map((num) => `<span>${num}</span>`).join(" ");
-    player2HistoryList.innerHTML = player2.history.map((num) => `<span>${num}</span>`).join(" ");
-}
 
 // Handle a player's guess
 function handleGuess() {
@@ -151,20 +146,40 @@ function handleGuess() {
       drawFullHangman(opponentPlayer); // Draw full hangman for losing player
       endGame();
     } else {
-      // Incorrect guess
-      message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
-      setTimeout(switchTurn, 1000); // Call switchTurn() after 1 second delay
-    }
+       // Incorrect guess: Red light
+    setLight(currentPlayer, "red");
+    message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
+    setTimeout(switchTurn, 1000); // Delay turn switch to show red light
+  }
   
     guessInput.value = ""; // Clear input box
   }
-  //Börja Här
+  // Update the history display for both players
+function updateHistory() {
+    player1HistoryList.innerHTML = player1.history.map((num) => `<span>${num}</span>`).join(" ");
+    player2HistoryList.innerHTML = player2.history.map((num) => `<span>${num}</span>`).join(" ");
+}
+
 // Switch to the next player's turn
 function switchTurn() {
     currentPlayer = currentPlayer === player1 ? player2 : player1; // Swap players
     opponentPlayer = opponentPlayer === player1 ? player2 : player1; // Update opponent
     const turnIndicator = document.getElementById("turn-indicator");
     turnIndicator.textContent = `${currentPlayer.name}'s Turn`; // Update the turn indicator
+  }
+  // Set the light for the current player
+function setLight(player, color) {
+    const light = player === player1 ? player1Light : player2Light;
+    light.className = "light"; // Reset the light class
+  
+    if (color === "green") {
+      light.classList.add("green"); // Green light
+    } else if (color === "red") {
+      light.classList.add("red"); // Red light
+      setTimeout(() => {
+        light.classList.remove("red"); // Turn off red light after 1 second
+      }, 1000);
+    }
   }
     
 
