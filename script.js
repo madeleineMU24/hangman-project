@@ -1,185 +1,215 @@
-// Game variables
-let player1 = { name: "", secretNumber: 0, history: [], ctx: null, steps: null }; 
-let player2 = { name: "", secretNumber: 0, history: [], ctx: null, steps: null }; 
-let currentPlayer, opponentPlayer; 
-
-// Hangman drawing steps (array of drawing functions)
-const drawSteps = (ctx) => [
+// Helper function to get all DOM elements
+function getDOMElements() {
+    return {
+      // Game containers and sections
+      nameInputSection: document.getElementById("name-input-section"),
+      gameContainer: document.getElementById("game-container"),
+      userInputSection: document.getElementById("user-input-section"),
+      newGameContainer: document.getElementById("new-game-container"),
+      // Player displays
+      player1Display: document.getElementById("player1-display"),
+      player2Display: document.getElementById("player2-display"),
+      player1Light: document.getElementById("player1-light"),
+      player2Light: document.getElementById("player2-light"),
+      player1HistoryList: document.getElementById("player1-history"),
+      player2HistoryList: document.getElementById("player2-history"),
+      // Turn indicator and guess input
+      turnIndicator: document.getElementById("turn-indicator"),
+      guessInput: document.getElementById("guess"),
+      submitButton: document.getElementById("submit-btn"),
+      // Guess counters
+      player1GuessesLeft: document.getElementById("player1-guesses-left"),
+      player2GuessesLeft: document.getElementById("player2-guesses-left"),
+      // Messages and results
+      message: document.getElementById("message"),
+      resultText: document.getElementById("result-text"),
+      newGameButton: document.getElementById("new-game-button"),
+    };
+  }
+  
+  // Initialize DOM elements
+  const DOM = getDOMElements();
+  
+  // Hangman drawing steps (array of drawing functions)
+  const drawSteps = (ctx) => [
     () => {
-        ctx.beginPath();
-        ctx.moveTo(50, 150); // Base
-        ctx.lineTo(150, 150);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(50, 150); // Base
+      ctx.lineTo(150, 150);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(100, 150); // Vertical pole
-        ctx.lineTo(100, 20);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(100, 150); // Vertical pole
+      ctx.lineTo(100, 20);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(100, 20); // Top beam
-        ctx.lineTo(140, 20);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(100, 20); // Top beam
+      ctx.lineTo(140, 20);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 20); // Rope
-        ctx.lineTo(140, 40);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 20); // Rope
+      ctx.lineTo(140, 40);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.arc(140, 50, 10, 0, Math.PI * 2); // Head
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(140, 50, 10, 0, Math.PI * 2); // Head
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 60); // Body
-        ctx.lineTo(140, 100);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 60); // Body
+      ctx.lineTo(140, 100);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 70); // Left arm
-        ctx.lineTo(120, 90);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 70); // Left arm
+      ctx.lineTo(120, 90);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 70); // Right arm
-        ctx.lineTo(160, 90);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 70); // Right arm
+      ctx.lineTo(160, 90);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 100); // Left leg
-        ctx.lineTo(120, 120);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 100); // Left leg
+      ctx.lineTo(120, 120);
+      ctx.stroke();
     },
     () => {
-        ctx.beginPath();
-        ctx.moveTo(140, 100); // Right leg
-        ctx.lineTo(160, 120);
-        ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(140, 100); // Right leg
+      ctx.lineTo(160, 120);
+      ctx.stroke();
     },
-];
-
-let submitButton;
-
-// Initialize the game by setting player names and secret numbers
-function startGame() {
-    const player1Name = document.getElementById("player1").value.trim();
-    const player2Name = document.getElementById("player2").value.trim();
-
+  ];
+  
+  // Game variables
+  let player1 = { name: "", secretNumber: 0, history: [], ctx: null, steps: null, remainingGuesses: 10 };
+  let player2 = { name: "", secretNumber: 0, history: [], ctx: null, steps: null, remainingGuesses: 10 };
+  let currentPlayer, opponentPlayer;
+  
+  // Initialize the game
+  function startGame() {
+    const player1Name = document.getElementById("player1-name").value.trim();
+    const player2Name = document.getElementById("player2-name").value.trim();
+  
     if (!player1Name || !player2Name) {
-        alert("Both players must enter their names!");
-        return;
-    }
-
-    player1 = {
-        ...player1,
-        name: player1Name,
-        secretNumber: Math.floor(Math.random() * 100) + 1, // Random number between 1 and 100
-        ctx: document.getElementById("canvas1").getContext("2d"),
-        steps: drawSteps(document.getElementById("canvas1").getContext("2d")),
-    };
-    player2 = {
-        ...player2,
-        name: player2Name,
-        secretNumber: Math.floor(Math.random() * 100) + 1, // Random number between 1 and 100
-        ctx: document.getElementById("canvas2").getContext("2d"),
-        steps: drawSteps(document.getElementById("canvas2").getContext("2d")),
-    };
-
-    // Display player names
-    const player1Display = document.getElementById("player1-display");
-    const player2Display = document.getElementById("player2-display");
-    player1Display.textContent = player1.name;
-    player2Display.textContent = player2.name;
-
-    // Set the first player
-    currentPlayer = player1;
-    opponentPlayer = player2;
-
-    // Update the turn indicator
-    const turnIndicator = document.getElementById("turn-indicator")
-    turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
-
-    // Show the game screen
-    const nameInputSection = document.getElementById("name-input");
-    const gameContainer = document.getElementById("game-container");
-    const userInputSection = document.getElementById("user-input-section");
-    nameInputSection.toggleAttribute("hidden");
-    gameContainer.toggleAttribute("hidden");
-    userInputSection.toggleAttribute("hidden");
-    submitButton = document.getElementById("submit-btn");
-    submitButton.addEventListener("click", handleGuess);
-}
-
-const btnStartGame = document.getElementById("start-game")
-btnStartGame.addEventListener('click', startGame)
-
-const player1HistoryList = document.getElementById("player1-history"); 
-const player2HistoryList = document.getElementById("player2-history"); 
-
-
-// Handle a player's guess
-function handleGuess() {
-    const guessInput = document.getElementById("guess");
-    const guess = parseInt(guessInput.value);
-  
-    const message = document.getElementById("message");
-  
-    if (isNaN(guess) || guess < 1 || guess > 100) {
-      message.textContent = "Please enter a valid number between 1 and 100.";
+      alert("Both players must enter their names!");
       return;
     }
   
-    currentPlayer.history.push(guess); // Add guess to player's history
-    updateHistory(); // Update history display
+    player1 = {
+      ...player1,
+      name: player1Name,
+      secretNumber: Math.floor(Math.random() * 100) + 1,
+      ctx: document.getElementById("canvas1").getContext("2d"),
+      steps: drawSteps(document.getElementById("canvas1").getContext("2d")),
+      remainingGuesses: 10, // Reset remaining guesses
+    };
+  
+    player2 = {
+      ...player2,
+      name: player2Name,
+      secretNumber: Math.floor(Math.random() * 100) + 1,
+      ctx: document.getElementById("canvas2").getContext("2d"),
+      steps: drawSteps(document.getElementById("canvas2").getContext("2d")),
+      remainingGuesses: 10, // Reset remaining guesses
+    };
+  
+    // Display player names
+    DOM.player1Display.textContent = player1.name;
+    DOM.player2Display.textContent = player2.name;
+  
+    currentPlayer = player1;
+    opponentPlayer = player2;
+  
+    DOM.turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
+  
+    // Show the game screen
+    DOM.nameInputSection.classList.add("hide");
+    DOM.gameContainer.classList.remove("hide");
+    DOM.userInputSection.classList.remove("hide");
+  
+    updateGuessesLeft(); // Initialize the guesses left display
+  }
+  
+  // Handle a player's guess
+  function handleGuess() {
+    const guess = parseInt(DOM.guessInput.value);
+  
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      DOM.message.textContent = "Please enter a valid number between 1 and 100.";
+      return;
+    }
+  
+    currentPlayer.history.push(guess);
+    currentPlayer.remainingGuesses--;
+    updateHistory();
+    updateGuessesLeft();
   
     if (guess === opponentPlayer.secretNumber) {
-      // Correct guess: End game
-      message.textContent = `🎉 Congratulations ${currentPlayer.name}! You win!`;
-      drawFullHangman(opponentPlayer); // Draw full hangman for losing player
+      setLight(currentPlayer, "green");
+      DOM.message.textContent = `🎉 Congratulations ${currentPlayer.name}! You win!`;
+      DOM.resultText.textContent = `${currentPlayer.name} Wins!`;
+      drawFullHangman(opponentPlayer);
       endGame();
     } else {
-       // Incorrect guess: Red light
-    setLight(currentPlayer, "red");
-    message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
-    setTimeout(switchTurn, 1000); // Delay turn switch to show red light
+      setLight(currentPlayer, "red");
+      DOM.message.textContent = guess < opponentPlayer.secretNumber ? "Too low!" : "Too high!";
+  
+      if (currentPlayer.remainingGuesses === 0) {
+        DOM.message.textContent = `${currentPlayer.name} has no guesses left!`;
+        drawFullHangman(currentPlayer);
+        endGame();
+      } else {
+        setTimeout(switchTurn, 1000);
+      }
+    }
+  
+    DOM.guessInput.value = "";
   }
   
-    guessInput.value = ""; // Clear input box
+  // Update the history display
+  function updateHistory() {
+    DOM.player1HistoryList.innerHTML = player1.history.map((num) => `<span>${num}</span>`).join(" ");
+    DOM.player2HistoryList.innerHTML = player2.history.map((num) => `<span>${num}</span>`).join(" ");
   }
-  // Update the history display for both players
-function updateHistory() {
-    player1HistoryList.innerHTML = player1.history.map((num) => `<span>${num}</span>`).join(" ");
-    player2HistoryList.innerHTML = player2.history.map((num) => `<span>${num}</span>`).join(" ");
-}
-
-// Switch to the next player's turn
-function switchTurn() {
-    currentPlayer = currentPlayer === player1 ? player2 : player1; // Swap players
-    opponentPlayer = opponentPlayer === player1 ? player2 : player1; // Update opponent
-    const turnIndicator = document.getElementById("turn-indicator");
-    turnIndicator.textContent = `${currentPlayer.name}'s Turn`; // Update the turn indicator
+  
+  // Update the remaining guesses display
+  function updateGuessesLeft() {
+    DOM.player1GuessesLeft.textContent = player1.remainingGuesses;
+    DOM.player2GuessesLeft.textContent = player2.remainingGuesses;
   }
+  
   // Set the light for the current player
-function setLight(player, color) {
-    const light = player === player1 ? player1Light : player2Light;
+  function setLight(player, color) {
+    const light = player === player1 ? DOM.player1Light : DOM.player2Light;
     light.className = "light"; // Reset the light class
   
     if (color === "green") {
-      light.classList.add("green"); // Green light
+      light.classList.add("green");
     } else if (color === "red") {
-      light.classList.add("red"); // Red light
+      light.classList.add("red");
       setTimeout(() => {
-        light.classList.remove("red"); // Turn off red light after 1 second
+        light.classList.remove("red");
       }, 1000);
     }
   }
-    
-
+  
+  // Switch to the next player's turn
+  function switchTurn() {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    opponentPlayer = opponentPlayer === player1 ? player2 : player1;
+    DOM.turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
+  }
+  
