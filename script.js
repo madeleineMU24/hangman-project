@@ -185,7 +185,7 @@ function getDOMElements() {
     DOM.player2HistoryList.innerHTML = player2.history.map((num) => `<span>${num}</span>`).join(" ");
   }
   
-  // Update the remaining guesses display
+  // Update of the remaining guesses display
   function updateGuessesLeft() {
     DOM.player1GuessesLeft.textContent = player1.remainingGuesses;
     DOM.player2GuessesLeft.textContent = player2.remainingGuesses;
