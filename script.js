@@ -212,4 +212,25 @@ function getDOMElements() {
     opponentPlayer = opponentPlayer === player1 ? player2 : player1;
     DOM.turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
   }
-  
+  function drawFullHangman(player) {
+    player.steps.forEach((step) => step());
+}
+
+function updateHistory() {
+    player1HistoryList.innerHTML = player1.history.map(num => `<span>${num}</span>`).join(" ");
+    player2HistoryList.innerHTML = player2.history.map(num => `<span>${num}</span>`).join(" ");
+}
+
+function updateGuesses() {
+    document.getElementById("player1-guesses-left").textContent = player1.remainingGuesses;
+    document.getElementById("player2-guesses-left").textContent = player2.remainingGuesses;
+}
+
+function randomNumber() {
+    return Math.floor(Math.random() * 100) + 1;
+}
+
+
+// Event Listeners
+document.getElementById("start-game-button").addEventListener("click", startGame);
+submitButton.addEventListener("click", handleGuess);
