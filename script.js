@@ -173,28 +173,17 @@ function setLight(player, color) {
     setTimeout(() => {
       light.classList.remove("red"); // Turn off red light after 1 second
     }, 1000);
-  }
-}
-
-// Switch to the next player's turn
+    // Switch to the next player's turn
 function switchTurn() {
   currentPlayer = currentPlayer === player1 ? player2 : player1;
   opponentPlayer = opponentPlayer === player1 ? player2 : player1;
   turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
 }
-
-// Draw the full hangman for the losing player
+ // Draw the full hangman for the losing player
 function drawFullHangman(player) {
   player.steps.forEach((step) => step());
 }
 
-// End the game and disable further input
-function endGame() {
-  guessInput.disabled = true;
-  submitButton.disabled = true;
-  newGameContainer.classList.remove("hide");
-}
-
 // Event Listeners
 document.getElementById("start-game-button").addEventListener("click", startGame);
-submitButton.addEventListener("click", handleGuess);
+submitButton.addEventListener("click", handleGuess);    
