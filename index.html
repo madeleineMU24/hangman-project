@@ -17,27 +17,17 @@
                 <li>Först att hänga motståndarens gubbe vinner!</li>
             </ol>
         </section>
+        <!-- Player Name Input -->
         <div id="name-input-section">
             <h2>Enter Player Names</h2>
             <input type="text" id="player1-name" placeholder="Player 1 Name">
             <input type="text" id="player2-name" placeholder="Player 2 Name">
             <button id="start-game-button">Start Game</button>
         </div>
-
-        <!-- Player Info Section -->
-        <div id="player1-info">
-            <h3 id="player1-display-info"></h3>
-            <p>Remaining Guesses: <span id="player1-guesses-left">10</span></p>
-        </div>
-        <div id="player2-info">
-            <h3 id="player2-display-info"></h3>
-            <p>Remaining Guesses: <span id="player2-guesses-left">10</span></p>
-        </div>
-
         <!-- Game Area -->
         <div id="game-container" class="hide">
             <div class="player-section">
-                <h2 id="player1-display-game"></h2>
+                <h2 id="player1-display"></h2>
                 <div class="light-container">
                     <div id="player1-light" class="light"></div>
                 </div>
@@ -46,9 +36,10 @@
                 <div class="history-box">
                     <ul id="player1-history" class="history-list"></ul>
                 </div>
+                <p>Remaining Guesses: <span id="player1-guesses-left">10</span></p>
             </div>
             <div class="player-section">
-                <h2 id="player2-display-game"></h2>
+                <h2 id="player2-display"></h2>
                 <div class="light-container">
                     <div id="player2-light" class="light"></div>
                 </div>
@@ -57,9 +48,9 @@
                 <div class="history-box">
                     <ul id="player2-history" class="history-list"></ul>
                 </div>
+                <p>Remaining Guesses: <span id="player2-guesses-left">10</span></p>
             </div>
         </div>
-
         <!-- User Input Section -->
         <div id="user-input-section" class="hide">
             <h3 id="turn-indicator"></h3>
@@ -67,16 +58,13 @@
             <button id="submit-btn">Submit Guess</button>
             <p id="message"></p>
         </div>
-
         <!-- New Game Section -->
         <div id="new-game-container" class="hide">
             <h2 id="result-text"></h2>
             <button id="new-game-button">Start New Game</button>
         </div>
-
         <footer>Spel gjort av: Rupana, Stephanie, Ivana, Adrian & Madeleine</footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
