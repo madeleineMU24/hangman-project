@@ -207,6 +207,7 @@ function randomNumber() {
 function resetGame() {
     location.reload();
 }
+
 // Event Listeners
 document.getElementById("start-game-button").addEventListener("click", startGame);
 submitButton.addEventListener("click", handleGuess);
