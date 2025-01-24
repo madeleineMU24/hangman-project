@@ -204,7 +204,11 @@ function randomNumber() {
     return Math.floor(Math.random() * 100) + 1;
 }
 
+function resetGame() {
+    location.reload();
+}
 
 // Event Listeners
 document.getElementById("start-game-button").addEventListener("click", startGame);
 submitButton.addEventListener("click", handleGuess);
+newGameButton.addEventListener("click", resetGame);
