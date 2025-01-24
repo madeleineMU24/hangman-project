@@ -1,3 +1,4 @@
+// DOM Elements
 const nameInputSection = document.getElementById("name-input-section"); // Player name input section
 const gameContainer = document.getElementById("game-container"); // Main game container
 const userInputSection = document.getElementById("user-input-section"); // Input section for guesses
@@ -181,3 +182,8 @@ function switchTurn() {
   opponentPlayer = opponentPlayer === player1 ? player2 : player1;
   turnIndicator.textContent = `${currentPlayer.name}'s Turn`;
 }
+
+
+// Event Listeners
+document.getElementById("start-game-button").addEventListener("click", startGame);
+submitButton.addEventListener("click", handleGuess);
