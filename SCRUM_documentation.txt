@@ -1,0 +1,46 @@
+Loggbok projektarbete hänga gubbe
+
+Måndag 20/1 kl 08:00:
+
+Samtliga gruppmedlemmar närvarande
+
+Dagens agenda innefattar att bestämma generella regler för vårt projekt och börja skapa vår Trello tillsammans samt dela upp user stories/bygga lag. 
+Ett Github repo ska också skapas där alla blir inbjudna så att vi kan testa att det fungerar och alla kommer igång.
+
+Tisdag 21/1 kl 09:00: 
+
+Samtliga gruppmedlemmar närvarande
+
+Agendan för dagen är att komplettera vår Trello så att den blir klar bla sätta fler user stories och bestämma vilka vi ska lägga i sprinten. 
+Till slutet av dagen är planen att göra vår första PR och code review. 
+
+Onsdag 22/1 kl 09:00:
+
+Samtliga gruppmedlemmar närvarande
+
+Agenda för dagen: Kort standup för checka av hur allt går samt mergea tisdagens arbete för att sedan kunna fortsätta med sprint backlogen individuellt. 
+
+Torsdag 23/1 kl 09:00:
+
+Samtliga gruppmedlemmar närvarande (Rupana vabb fm)
+
+Agenda för dagen är att börja kolla PR och lösa möjliga konflikter tillsammans. Fortsätta koda.  
+Vi ska bestämma datum för sprint avslut samt sprint review. Rupana vabbar fm och får därför info senare i em.
+
+Fredag 24/1 kl 09:00:
+
+Samtliga gruppmedlemmar närvarande
+
+Dagens agenda blir ev konfliktlösning samt sprintavslut inför tisdagens sprint review. 
+
+
+Måndag 25/1 kl 09:00:
+
+Samtliga gruppmedlemmar närvarande
+
+Sprint review: Developing-teamet samt testing-teamet har presenterat produkt till SCRUM  master. 
+Vi testade spelet och det fungerar som prototyp men behöver finjusteras innan slut release. 
+Teamet har haft bra kommunikation genom hela projektet samt haft bra problemlösning, vilket vi tar med oss in i nästa sprint. 
+Vi hade lite problem att starta och planera upp Trello eftersom att ingen av oss gjort det tidigare, men med erfarenheten vi fått nu kommer det inte vara ett problem i framtiden.
+Vi tar med oss till nästa sprint att vi ska göra user stories lite mindre/mer uppdelade för att kunnat dela upp uppdragen lite mer individuellt inom developing-teamen, 
+samt fått känslan av att man uppnår något ofta. 
